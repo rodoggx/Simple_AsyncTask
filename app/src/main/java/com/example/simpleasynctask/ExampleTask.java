@@ -3,10 +3,16 @@ package com.example.simpleasynctask;
 import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ProgressBar;
 
-public class ExampleTask extends AsyncTask<Void, Void, Void> {
+public class ExampleTask extends AsyncTask<Void, Integer, Void> {
 
     private static final String TAG = "AsyncTaskTAG_";
+    private ProgressBar mProgressBar;
+
+    public ExampleTask(ProgressBar progressBar) {
+        mProgressBar = progressBar;
+    }
 
     @Override
     protected void onPreExecute() {
@@ -22,6 +28,7 @@ public class ExampleTask extends AsyncTask<Void, Void, Void> {
             try {
                 Thread.sleep(1000);
                 Log.d(TAG, "onResume: " + i);
+                publishProgress(i);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -36,9 +43,10 @@ public class ExampleTask extends AsyncTask<Void, Void, Void> {
     }
 
     @Override
-    protected void onProgressUpdate(Void... values) {
+    protected void onProgressUpdate(Integer... values) {
         super.onProgressUpdate(values);
         Log.d(TAG, "onProgressUpdate: " + Thread.currentThread());
+        mProgressBar.setProgress(values[0]);
     }
 
     @Override
