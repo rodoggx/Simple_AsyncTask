@@ -23,7 +23,7 @@ public class ExampleTask extends AsyncTask<Void, Integer, Void> {
     @Override
     protected Void doInBackground(Void... voids) {
         Log.d(TAG, "doInBackground: " + Thread.currentThread());
-        publishProgress();
+        //publishProgress();
         for (int i = 0; i < 100; i++) {
             try {
                 Thread.sleep(1000);
